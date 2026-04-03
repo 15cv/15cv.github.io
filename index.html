@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>15cV — Venture Lab + Social Finance Studio</title>
+  <style>
+    :root {
+      --bg: #0d0f12;
+      --panel: #151922;
+      --panel-2: #1c2230;
+      --text: #f6f3ea;
+      --muted: #b9b2a3;
+      --line: rgba(255,255,255,0.1);
+      --accent: #d6a84f;
+      --accent-2: #86b89d;
+      --max: 1100px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0b0d10 0%, #111621 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(100% - 2rem, var(--max));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(10, 12, 16, 0.8);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.9rem 0;
+    }
+
+    .brand {
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand small {
+      color: var(--muted);
+      font-weight: 500;
+      margin-left: 0.35rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    section {
+      padding: 4.5rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero {
+      padding: 6rem 0 5rem;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 0.35rem 0.7rem;
+      border: 1px solid rgba(214,168,79,0.35);
+      border-radius: 999px;
+      color: var(--accent);
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.2rem;
+      background: rgba(214,168,79,0.07);
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 0.8rem;
+      line-height: 1.1;
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 5vw, 4.4rem);
+      max-width: 12ch;
+    }
+
+    h2 {
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+    }
+
+    h3 {
+      font-size: 1.1rem;
+    }
+
+    .lead {
+      max-width: 60ch;
+      font-size: 1.08rem;
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1.15rem;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, rgba(214,168,79,0.2), rgba(134,184,157,0.18));
+      border-color: rgba(214,168,79,0.35);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      transition: 160ms ease;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .four {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 1.25rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    }
+
+    .card p,
+    .card li,
+    .muted {
+      color: var(--muted);
+    }
+
+    ul.clean {
+      list-style: none;
+      padding: 0;
+      margin: 0.8rem 0 0;
+    }
+
+    ul.clean li {
+      padding: 0.28rem 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.07);
+    }
+
+    ul.clean li:last-child {
+      border-bottom: none;
+    }
+
+    .kicker {
+      color: var(--accent-2);
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.55rem;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .project-tag {
+      display: inline-flex;
+      padding: 0.3rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-right: 0.4rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .asset-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .asset-item {
+      padding: 0.95rem;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .embed-wrap {
+      margin-top: 1.2rem;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+    }
+
+    iframe {
+      width: 100%;
+      min-height: 560px;
+      border: 0;
+      display: block;
+      background: #fff;
+    }
+
+    .footer {
+      padding: 3rem 0 4rem;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .small {
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      .two,
+      .four,
+      .projects,
+      .asset-list {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <div class="brand">15cV <small>Venture Lab + Social Finance Studio</small></div>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#identity">Identity</a>
+        <a href="#what-it-is">What It Is</a>
+        <a href="#system">The System</a>
+        <a href="#work">Current Work</a>
+        <a href="#cases">Case Studies + Assets</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="identity" class="hero">
+      <div class="wrap">
+        <div class="eyebrow">Community-centered capital systems</div>
+        <h1>Fifteen Cents Ventures (15cV)</h1>
+        <p class="lead">
+          A venture lab and social finance studio building research, design, and investment infrastructure for collective wealth building.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#contact">Get in touch</a>
+          <a class="btn" href="#cases">View work + assets</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="what-it-is">
+      <div class="wrap">
+        <h2>What it is</h2>
+        <p class="lead">
+          15cV builds community-centered investment systems—combining research, program design, and capital to support undercapitalized founders and expand access for non-accredited investors to participate in collective wealth building.
+        </p>
+      </div>
+    </section>
+
+    <section id="system">
+      <div class="wrap">
+        <h2>The system</h2>
+        <div class="grid four">
+          <article class="card">
+            <div class="kicker">🌍 Venture Lab</div>
+            <h3>Builds programs + assets</h3>
+            <ul class="clean">
+              <li>Prepares assets</li>
+              <li>Builds programs</li>
+              <li>Develops infrastructure</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="kicker">💸 Social Finance Studio</div>
+            <h3>Structures + deploys capital</h3>
+            <ul class="clean">
+              <li>Structures deals</li>
+              <li>Deploys capital</li>
+              <li>Connects investors</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="kicker">🌐 Community Investment Marketplace</div>
+            <h3>Enables participation</h3>
+            <ul class="clean">
+              <li>Expands access to investment opportunities</li>
+              <li>Centers non-accredited investors</li>
+              <li>Supports collective wealth building</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="kicker">🧪 Research &amp; Learning Collective</div>
+            <h3>Economic Justice League (EJL)</h3>
+            <ul class="clean">
+              <li>Evaluation + data systems</li>
+              <li>Storytelling + accountability</li>
+              <li>Participatory research</li>
+              <li>Learning infrastructure</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="wrap">
+        <h2>What I’m doing right now</h2>
+        <div class="grid two">
+          <div class="card">
+            <p class="muted">Current work across 15cV and EJL includes:</p>
+            <ul class="clean">
+              <li>Designing evaluation and data systems for community wealth building initiatives</li>
+              <li>Supporting movement resourcing infrastructure and collaborative learning processes</li>
+              <li>Developing community-centered investment pathways and ecosystem relationships</li>
+              <li>Building research and learning systems that connect impact, accountability, and capital</li>
+            </ul>
+          </div>
+          <div class="card">
+            <p class="muted">Current interests and areas of practice:</p>
+            <ul class="clean">
+              <li>Solidarity economy strategy</li>
+              <li>Community investment infrastructure</li>
+              <li>Participatory evaluation + research design</li>
+              <li>Cooperative and place-based economic development</li>
+              <li>Accessible, low-friction technology for movement ecosystems</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cases">
+      <div class="wrap">
+        <h2>Sample case studies + assets</h2>
+        <p class="lead">A light portfolio of current and prior work, plus selected tools, frameworks, and living infrastructure.</p>
+
+        <div class="projects">
+          <article class="card">
+            <div class="kicker">Case Study</div>
+            <h3>Arts &amp; Culture Capital Lab</h3>
+            <p>Designed, developed, implemented, and evaluated a two-year pilot supporting community wealth building projects led by Chicago artists.</p>
+            <span class="project-tag">Research</span>
+            <span class="project-tag">Design</span>
+            <span class="project-tag">Capital</span>
+          </article>
+          <article class="card">
+            <div class="kicker">Case Study</div>
+            <h3>Movement Tech for Black Impact Investing</h3>
+            <p>Session, framework, and field inquiry on the tools and infrastructure needed to operationalize impact investing for Black non-accredited investors.</p>
+            <span class="project-tag">Social Finance</span>
+            <span class="project-tag">Tech Strategy</span>
+            <span class="project-tag">Field Building</span>
+          </article>
+          <article class="card">
+            <div class="kicker">Asset</div>
+            <h3>Resource Conjuring Frameworks</h3>
+            <p>Emergent practices, sprint models, and program design assets connecting narrative, data, and resourcing strategy.</p>
+            <span class="project-tag">Frameworks</span>
+            <span class="project-tag">Learning Systems</span>
+          </article>
+        </div>
+
+        <div class="asset-list">
+          <div class="asset-item">
+            <strong>What can live here</strong>
+            <div class="small">Project cards, PDF links, slide decks, sample frameworks, Airtable interfaces, or selected writing samples.</div>
+          </div>
+          <div class="asset-item">
+            <strong>Easy future additions</strong>
+            <div class="small">Add clickable thumbnails, tags by 15cV node, or a filtered view of active/public-facing projects.</div>
+          </div>
+        </div>
+
+        <div class="embed-wrap">
+          <!-- Replace the src below with your Airtable share/embed URL -->
+          <iframe
+            src="https://airtable.com/embed/appXXXXXXXXXXXXXX/shrXXXXXXXXXXXXXX?backgroundColor=gray&viewControls=on"
+            title="15cV Airtable embed"
+            loading="lazy">
+          </iframe>
+        </div>
+        <p class="small" style="margin-top:0.8rem;">Replace the Airtable URL above with your public share or embed link for case studies, assets, or an opportunity dashboard.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact" class="footer">
+    <div class="wrap">
+      <h2>Contact</h2>
+      <p class="lead">Open to aligned collaborations in research, learning systems, social finance infrastructure, and community-centered economic design.</p>
+      <div class="contact-links">
+        <a class="btn" href="mailto:hello@15cv.studio">hello@15cv.studio</a>
+        <a class="btn" href="mailto:tmikell@gmail.com">tmikell@gmail.com</a>
+        <a class="btn" href="https://calendly.com/" target="_blank" rel="noreferrer">Schedule time</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
