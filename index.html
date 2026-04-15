@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>15cV — Venture Lab + Social Finance Studio</title>
@@ -256,21 +257,60 @@
       background: rgba(255,255,255,0.03);
     }
 
-    .embed-wrap {
-      margin-top: 1.2rem;
-      border-radius: 24px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
-    }
+.embed-tabs {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin: 1rem 0 1rem;
+}
 
-    iframe {
-      width: 100%;
-      min-height: 560px;
-      border: 0;
-      display: block;
-      background: #fff;
-    }
+.embed-tab {
+  appearance: none;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--line);
+  color: var(--text);
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+  transition: 160ms ease;
+}
+
+.embed-tab:hover {
+  border-color: rgba(214,168,79,0.45);
+  color: var(--accent);
+}
+
+.embed-tab.active {
+  border-color: rgba(214,168,79,0.45);
+  color: var(--accent);
+  background: rgba(214,168,79,0.08);
+}
+
+.embed-wrap {
+  margin-top: 1.2rem;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+}
+
+.airtable-embed {
+  width: 100%;
+  min-height: 620px;
+  border: 0;
+  display: block;
+  background: transparent;
+}
+
+iframe {
+  width: 100%;
+  min-height: 560px;
+  border: 0;
+  display: block;
+  background: transparent;
+}
 
     .footer {
       padding: 3rem 0 4rem;
@@ -312,7 +352,7 @@
         <a href="#what-it-is">What We're Building</a>
         <a href="#system">How We Work</a>
         <a href="#why">Our Why</a>
-        <a href="#cases">Case Studies + Assets</a>
+        <a href="#cases">Case Studies + Library</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -467,10 +507,9 @@
 
     <section id="cases">
       <div class="wrap">
-        <h2>Case Studies and Assets</h2>
+        <h2>Case Studies & Library</h2>
 <p class="lead">
-Selected work across research, design, capital, and ecosystem building—alongside the tools, frameworks, and infrastructure that support it.
-</p>
+Selected work across research, design, capital, and ecosystem building—paired with a browsable library of projects, assets, organizations, and collaborators.</p>
 
         <div class="projects">
           <article class="card">
@@ -506,24 +545,34 @@ Selected work across research, design, capital, and ecosystem building—alongsi
 
         <div class="asset-list">
           <div class="asset-item">
-            <strong>What can live here</strong>
-            <div class="small">Project cards, PDF links, slide decks, sample frameworks, Airtable interfaces, or selected writing samples.</div>
+            <strong>Browse the library</strong>
+    <div class="small">Explore assets, projects, organizations, and collaborators through the tabs below.</div>
           </div>
           <div class="asset-item">
-            <strong>Easy future additions</strong>
-            <div class="small">Add clickable thumbnails, tags by 15cV node, or a filtered view of active/public-facing projects.</div>
+            <strong>What you’ll find</strong>
+    <div class="small">Decks, frameworks, reports, videos, live sessions, and ecosystem relationships connected to 15cV work.</div>
           </div>
         </div>
 
-        <div class="embed-wrap">
-          <!-- Replace the src below with your Airtable share/embed URL -->
-          <iframe
-            src="https://airtable.com/embed/appXXXXXXXXXXXXXX/shrXXXXXXXXXXXXXX?backgroundColor=gray&viewControls=on"
-            title="15cV Airtable embed"
-            loading="lazy">
-          </iframe>
-        </div>
-        <p class="small" style="margin-top:0.8rem;">Replace the Airtable URL above with your public share or embed link for case studies, assets, or an opportunity dashboard.</p>
+        <div class="embed-tabs">
+  <button class="embed-tab active" data-view="assets">🧰 Assets</button>
+  <button class="embed-tab" data-view="projects">📁 Projects</button>
+  <button class="embed-tab" data-view="organizations">🏢 Organizations</button>
+  <button class="embed-tab" data-view="people">👥 People</button>
+</div>
+
+<div class="embed-wrap">
+  <iframe
+    id="airtable-frame"
+    class="airtable-embed"
+    src="https://airtable.com/embed/app9bNmnd9M0LExJh/shr8wLvgyBtsCEX4X?layout=card&backgroundColor=transparent&viewControls=off"
+    title="15cV Library"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
+        <p class="small" style="margin-top:0.8rem;">A living library of 15cV work, collaborators, and public-facing assets.
+</p>
       </div>
     </section>
   </main>
@@ -531,7 +580,7 @@ Selected work across research, design, capital, and ecosystem building—alongsi
   <footer id="contact" class="footer">
     <div class="wrap">
       <h2>Contact</h2>
-      <p class="lead">Open to aligned collaborations in research, learning systems, social finance infrastructure, and community-centered economic design.</p>
+      <p class="lead">Open to aligned collaborations across research, learning systems, social finance infrastructure, and community-centered economic design.</p>
       <div class="contact-links">
         <a class="btn" href="mailto:hello@15cv.studio">hello@15cv.studio</a>
         
@@ -539,5 +588,26 @@ Selected work across research, design, capital, and ecosystem building—alongsi
       </div>
     </div>
   </footer>
+    <script>
+  const airtableViews = {
+    assets: "https://airtable.com/embed/app9bNmnd9M0LExJh/shr8wLvgyBtsCEX4X?layout=card&backgroundColor=transparent&viewControls=off",
+    people: "https://airtable.com/embed/app9bNmnd9M0LExJh/shrV1sGWllD2Soh2T?layout=card&backgroundColor=transparent&viewControls=off",
+    projects: "https://airtable.com/embed/app9bNmnd9M0LExJh/shr8bBYPcjgsEyY4B?layout=card&backgroundColor=transparent&viewControls=off",
+    organizations: "https://airtable.com/embed/app9bNmnd9M0LExJh/shrePh08Umj7BSt3s?layout=card&backgroundColor=transparent&viewControls=off"
+  };
+
+  const frame = document.getElementById("airtable-frame");
+  const tabs = document.querySelectorAll(".embed-tab");
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const view = tab.dataset.view;
+      frame.src = airtableViews[view];
+
+      tabs.forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+    });
+  });
+</script>
 </body>
 </html>
